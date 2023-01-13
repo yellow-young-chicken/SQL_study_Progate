@@ -88,3 +88,72 @@ NOT演算子を用いてcharacter_nameカラムが「にんじゃわんこ」で
 SELECT *
 FROM purchases
 WHERE NOT character_name = "にんじゃわんこ" ;
+
+-- 実行ボタンを押し、重複を除かない状態でcharacter_nameカラムのデータを取得してみましょう。
+
+SELECT character_name
+FROM purchases;
+
+-- 「SELECT name, price, 」に追加し、消費税を含んだpriceカラムのデータを取得してください
+
+SELECT name, price, price*1.08
+FROM purchases;
+
+-- priceカラムのデータの合計を取得してください
+
+SELECT SUM(price)
+FROM purchases;
+
+-- priceカラムの平均を取得してください
+
+SELECT AVG(price)
+FROM purchases;
+
+-- purchasesテーブルのnameカラムのデータの数を取得してください
+
+SELECT COUNT(name)
+FROM purchases
+
+-- もっとも大きいpriceカラムの値を取得してください
+
+SELECT MAX(price)
+FROM purchases;
+
+-- purchased_atごとの合計金額を取得してください
+
+SELECT SUM(price),purchased_at
+FROM purchases
+GROUP BY purchased_at
+;
+
+-- purchased_atとcharacter_nameごとの合計金額を取得してください
+
+SELECT SUM(price),purchased_at,character_name
+FROM purchases
+GROUP BY purchased_at,character_name
+;
+
+
+-- WHEREに条件を付け足してcharacter_nameがにんじゃわんこであるデータを取得し、
+-- グループ化してください
+
+SELECT SUM(price),purchased_at
+FROM purchases
+WHERE character_name = "にんじゃわんこ"
+GROUP BY purchased_at
+;
+
+-- 日付ごとの合計金額のうち、2000円を超えるデータのみを取得してください
+
+SELECT SUM(price),purchased_at
+FROM purchases
+GROUP BY purchased_at
+HAVING SUM(price)>2000
+;
+
+-- categoryでグループ化し、各カテゴリーごとにpriceカラムの合計とcategoryカラムのデータを取得してください
+
+SELECT SUM (price),category
+FROM purchases
+GROUP BY category
+;

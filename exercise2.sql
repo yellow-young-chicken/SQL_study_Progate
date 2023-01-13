@@ -76,3 +76,71 @@ SELECT *
 FROM purchases
 ORDER BY price DESC
 LIMIT 5 ;
+
+-- 重複するデータを除いたcharacter_nameカラムのデータを取得してください
+
+SELECT DISTINCT character_name
+FROM purchases;
+
+-- character_nameが「にんじゃわんこ」であるpriceカラムのデータの合計を取得してください
+
+SELECT SUM(price)
+FROM purchases
+WHERE character_name = "にんじゃわんこ" ;
+
+-- character_nameが「にんじゃわんこ」であるpriceカラムのデータの平均を取得してください
+
+SELECT AVG(price)
+FROM purchases
+WHERE character_name = "にんじゃわんこ"
+;
+
+-- purchasesテーブルのデータの数を取得してください
+
+SELECT COUNT(*)
+FROM purchases;
+
+-- もっとも小さいpriceカラムの値を取得してください
+
+SELECT MIN(price)
+FROM purchases;
+
+-- purchased_atごとのお金を使った数を取得してください
+
+SELECT COUNT(price),purchased_at
+FROM purchases
+GROUP BY purchased_at
+;
+
+-- purchased_atとcharacter_nameごとにお金を使った回数を取得してください
+
+SELECT COUNT(*),purchased_at,character_name
+FROM purchases
+GROUP BY purchased_at,character_name
+;
+
+-- WHEREに条件を付け足してcategoryが食費であるデータを
+-- purchased_atとcharacter_nameでグループ化してください
+
+SELECT SUM(price),purchased_at,character_name
+FROM purchases
+WHERE category = "食費"
+GROUP BY purchased_at,character_name
+;
+
+-- 日付とキャラクターごとの合計金額のうち、3000円を超えるデータのみを取得してください
+
+SELECT SUM(price),purchased_at,character_name
+FROM purchases
+GROUP BY purchased_at,character_name
+HAVING SUM(price)>3000
+
+;
+-- キャラクターごとにグループ化し、priceカラムの合計と、character_nameを取得してください
+-- ただし、WHEREでcategoryが「雑費」であるレコードから集計してください
+
+SELECT SUM(price),character_name 
+FROM purchases
+WHERE category = "雑費"
+GROUP BY character_name 
+;
