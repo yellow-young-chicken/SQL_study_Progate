@@ -62,7 +62,7 @@ LIMIT 10 ;
 
 SELECT *
 FROM purchases
-WHERE price IS NULL ; 
+WHERE price IS NULL ;
 
 -- 「FROM purchases」のあとにコードを追加し、categoryカラムが「食費」かつcharacter_nameカラムが「ひつじ仙人」であるデータを取得してください
 
@@ -139,8 +139,48 @@ HAVING SUM(price)>3000
 -- キャラクターごとにグループ化し、priceカラムの合計と、character_nameを取得してください
 -- ただし、WHEREでcategoryが「雑費」であるレコードから集計してください
 
-SELECT SUM(price),character_name 
+SELECT SUM(price),character_name
 FROM purchases
 WHERE category = "雑費"
-GROUP BY character_name 
+GROUP BY character_name
 ;
+
+SELECT *
+FROM players
+WHERE goals > 14 ;
+
+SELECT name,goals
+FROM players
+WHERE goals > (
+SELECT  AVG(goals)
+FROM players
+);
+
+--ASを使って、取得したカラム名を"チームの合計得点"としてください
+SELECT SUM(goals) AS "チームの合計得点"
+FROM players ;
+
+
+SELECT countries.name, SUM(goals)
+FROM players
+JOIN countries
+ON players.country_id = countries.id
+GROUP BY countries.name
+;
+
+SELECT players.name AS "選手名",teams.name AS "前年所属していたチーム"
+FROM players
+JOIN teams
+ON players.previous_team_id = teams.id ;
+
+SELECT players.name AS "選手名" , teams.name AS "前年所属していたチーム"
+FROM players
+LEFT JOIN teams
+ON players.previous_team_id = teams.id;
+
+SELECT *
+FROM players
+JOIN countries
+ON players.country_id = countries.id
+WHERE countries.name = "日本"
+AND height >= 180 ;
