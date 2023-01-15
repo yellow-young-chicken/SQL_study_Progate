@@ -23,3 +23,8 @@ FROM players
 JOIN countries
 ON players.country_id = countries.id
 GROUP BY countries.name ;
+
+-- ユーザーの年齢ごとの人数と、その年齢を取得してください
+SELECT age,count(*)
+FROM users
+GROUP BY age ;
