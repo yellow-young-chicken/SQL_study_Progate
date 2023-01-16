@@ -230,3 +230,36 @@ FROM players
 -- ユーザー全体の平均年齢を取得してください
 SELECT AVG(age)
 FROM users ;
+
+-- 全商品の名前を重複無く取得してください
+
+SELECT DISTINCT(name)
+FROM items ;
+
+-- 全商品の名前、値段、利益を取得してください
+SELECT name,price,price - cost
+FROM items ;
+
+-- 「グレーパーカー」より値段が高い商品の名前と値段を取得してください
+
+SELECT name,price
+FROM items
+WHERE price > (
+SELECT price
+FROM items
+WHERE name = "グレーパーカー");
+
+-- 商品ごとに商品のid、売れた個数を取得してください
+
+SELECT item_id,count(*)
+FROM sales_records
+GROUP BY item_id ;
+
+-- 売れた数が多い上位5商品のIDと名前、個数を取得してください
+SELECT items.id, items.name, COUNT(*)
+FROM sales_records
+JOIN items
+ON sales_records.item_id = items.id
+GROUP BY items.id, items.name
+ORDER BY COUNT(*) DESC
+LIMIT 5;

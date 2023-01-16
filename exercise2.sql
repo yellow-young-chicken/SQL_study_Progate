@@ -190,3 +190,38 @@ SELECT *
 FROM users
 WHERE age < 20 AND gender = 0;
 
+
+-- 全商品の名前と値段を、値段が高い順に並べてください
+
+SELECT name,price
+FROM items
+ORDER BY price DESC ;
+
+-- 全商品の利益の平均を取得してください
+
+SELECT AVG(price - cost)
+FROM items ;
+
+-- 7000円以下で「グレーパーカー」より利益が高い商品を取得してください
+
+SELECT name, price - cost
+FROM items
+WHERE price <= 7000 AND price - cost > (
+SELECT price - cost
+FROM items
+WHERE name = "グレーパーカー");
+
+
+-- 売れた数が多い上位5商品のidと個数を取得してください
+
+SELECT item_id,count(*)
+FROM sales_records
+GROUP BY item_id
+ORDER BY count(*) DESC 
+LIMIT 5 ;
+
+-- このサイトの総売上と総利益を取得してください
+SELECT SUM(items.price) AS "総売上", SUM(items.price - items.cost) AS "総利益"
+FROM sales_records
+JOIN items
+ON sales_records.item_id = items.id;
