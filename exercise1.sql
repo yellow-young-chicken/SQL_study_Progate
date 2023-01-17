@@ -263,3 +263,25 @@ ON sales_records.item_id = items.id
 GROUP BY items.id, items.name
 ORDER BY COUNT(*) DESC
 LIMIT 5;
+
+-- 日ごとの販売個数とその日付を取得してください
+SELECT purchased_at , COUNT(*) AS "販売個数"
+FROM sales_records
+GROUP BY purchased_at 
+ORDER BY purchased_at ASC ;
+
+-- 10個以上購入したユーザーIDとユーザー名、購入した商品の数を取得してください
+SELECT users.id, users.name, COUNT(*) AS "購入数"
+FROM sales_records
+JOIN users
+ON sales_records.user_id = users.id
+GROUP BY users.id,users.name
+HAVING COUNT(*) >= 10;
+
+
+-- 男性向け、女性向け、男女兼用商品ごとに指定されたデータを取得してください
+SELECT items.gender, SUM(items.price) AS "売上額"
+FROM sales_records
+JOIN items
+ON sales_records.item_id = items.id
+GROUP BY items.gender;

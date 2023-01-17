@@ -225,3 +225,33 @@ SELECT SUM(items.price) AS "総売上", SUM(items.price - items.cost) AS "総利
 FROM sales_records
 JOIN items
 ON sales_records.item_id = items.id;
+
+
+-- 日ごとの売上額とその日付を取得してください
+SELECT sales_records.purchased_at, SUM(items.price) AS "売上額"
+FROM sales_records
+JOIN items
+ON sales_records.item_id = items.id
+GROUP BY purchased_at
+ORDER BY purchased_at ASC ;
+
+-- 「サンダル」を購入したユーザーのidと名前を重複無く取得してください
+SELECT users.id, users.name
+FROM sales_records
+JOIN users
+ON sales_records.user_id = users.id
+WHERE sales_records.item_id = (
+SELECT id 
+FROM items
+WHERE name = "サンダル"
+)
+GROUP BY users.id, users.name ;
+
+-- 売上額が上位5位の商品の指定されたデータを取得してください
+SELECT items.id, items.name, SUM(items.price) AS "売上額"
+FROM sales_records
+JOIN items
+ON sales_records.item_id = items.id
+GROUP BY items.id, items.name , items.price
+ORDER BY SUM (items.price) DESC
+LIMIT 5 ;
