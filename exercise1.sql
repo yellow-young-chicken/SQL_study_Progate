@@ -285,3 +285,11 @@ FROM sales_records
 JOIN items
 ON sales_records.item_id = items.id
 GROUP BY items.gender;
+
+-- studentsテーブルにデータを追加してください。
+
+INSERT INTO students( name,course)
+VALUES ( "Kate","Java");
+
+-- 下記のクエリは消さないでください。
+select * from students;
