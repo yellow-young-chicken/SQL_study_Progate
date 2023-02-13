@@ -255,3 +255,14 @@ ON sales_records.item_id = items.id
 GROUP BY items.id, items.name , items.price
 ORDER BY SUM (items.price) DESC
 LIMIT 5 ;
+
+
+-- purchasesテーブルから、priceカラムのデータを取得してください
+
+SELECT price
+FROM purchases;
+
+-- purchasesテーブルから、全てのカラムのデータを取得してください
+
+SELECT *
+FROM purchases;

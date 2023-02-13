@@ -331,3 +331,14 @@ WHERE id = 2 ;
 
 -- 下記のクエリは消さないでください。
 SELECT * FROM students;
+
+
+-- purchasesテーブルから、nameカラムのデータを取得してください
+
+SELECT name
+FROM purchases;
+
+-- purchasesテーブルから、「nameカラム」と「priceカラム」のデータを取得してください
+
+SELECT name,price
+FROM purchases;
