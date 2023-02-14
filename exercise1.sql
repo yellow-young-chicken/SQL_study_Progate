@@ -342,3 +342,22 @@ FROM purchases;
 
 SELECT name,price
 FROM purchases;
+
+-- 全商品の名前、値段、利益を取得してください
+SELECT name,price,price - cost
+FROM items ;
+
+-- 「グレーパーカー」より値段が高い商品の名前と値段を取得してください
+
+SELECT name,price
+FROM items
+WHERE price > (
+SELECT price
+FROM items
+WHERE name = "グレーパーカー");
+
+-- 商品ごとに商品のid、売れた個数を取得してください
+
+SELECT item_id,count(*)
+FROM sales_records
+GROUP BY item_id ;

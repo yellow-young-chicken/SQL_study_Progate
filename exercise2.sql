@@ -266,3 +266,26 @@ FROM purchases;
 
 SELECT *
 FROM purchases;
+
+-- 全商品の利益の平均を取得してください
+
+SELECT AVG(price - cost)
+FROM items ;
+
+-- 7000円以下で「グレーパーカー」より利益が高い商品を取得してください
+
+SELECT name, price - cost
+FROM items
+WHERE price <= 7000 AND price - cost > (
+SELECT price - cost
+FROM items
+WHERE name = "グレーパーカー");
+
+
+-- 売れた数が多い上位5商品のidと個数を取得してください
+
+SELECT item_id,count(*)
+FROM sales_records
+GROUP BY item_id
+ORDER BY count(*) DESC 
+LIMIT 5 ;
